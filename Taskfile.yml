@@ -1,12 +1,13 @@
 version: "3"
 
 vars:
-  OPTIONS: "--unstable --import-map=import_map.json"
+  OPTIONS: "--unstable"
   PERMISSIONS: "--allow-net"
 
 tasks:
   run:
     desc: "Run Eli from the sources (e.g.: deno run)"
+    interactive: true
     deps:
       - cache-deps
     cmds:
@@ -23,7 +24,6 @@ tasks:
     desc: "Pre-cache Eli dependencies on the local filesystem (e.g.: deno cache)"
     sources:
       - ./**/*.ts
-      - import_map.json
     generates:
       - dist/eli
     cmds:
