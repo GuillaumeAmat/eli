@@ -1,0 +1,35 @@
+version: "3"
+
+vars:
+  OPTIONS: "--unstable --import-map=import_map.json"
+  PERMISSIONS: "--allow-net"
+
+tasks:
+  run:
+    desc: "Run Eli from the sources (e.g.: deno run)"
+    deps:
+      - cache-deps
+    cmds:
+      - deno run {{.OPTIONS}} {{.PERMISSIONS}} main.ts {{.CLI_ARGS}}
+
+  watch:
+    desc: "Run Eli from the sources in watch mode (e.g.: deno run --watch)"
+    deps:
+      - cache-deps
+    cmds:
+      - deno run {{.OPTIONS}} {{.PERMISSIONS}} --watch main.ts {{.CLI_ARGS}}
+
+  cache-deps:
+    desc: "Pre-cache Eli dependencies on the local filesystem (e.g.: deno cache)"
+    sources:
+      - ./**/*.ts
+      - import_map.json
+    generates:
+      - dist/eli
+    cmds:
+      - deno cache {{.OPTIONS}} deps.ts
+
+  compile:
+    desc: "Compile Eli into a single executable file"
+    cmds:
+      - deno compile {{.OPTIONS}} {{.PERMISSIONS}} --output=dist/eli main.ts

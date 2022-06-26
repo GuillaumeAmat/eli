@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "cliffy": "https://deno.land/x/cliffy@v0.24.2/command/mod.ts",
+    "xstate": "https://esm.sh/xstate@4.32.1"
+  }
+}
